@@ -6,10 +6,19 @@
 
 (def total-lifes 5)
 
-(defn game [lifes words right-letters]
+(defn missing-letters [word right-letters]
+  (remove (fn [letter] (contains? right-letters (str letter)) word)))
+
+(defn completed-word? [word right-letters]
+  (empty? (missing-letters word right-letters)))
+
+(defn game [lifes word right-letters]
 	(if (= lifes 0)
-		(loose-message)
-		(game (dec lifes)))
+		(loose-msg)
+    (if (completed-word? word right-letters)
+      (win-msg)
+      (game (dec lifes) word right-letters))))
+		
   
   
 (defn -main
