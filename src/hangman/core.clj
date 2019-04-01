@@ -4,6 +4,14 @@
 (defn loose-msg [] (print "you loose"))
 (defn win-msg [] (print "you win"))
 
+
+(defn read-letter! [] (read-line))
+
+(defn analyse-guess [guess lifes word right-letters]
+  (if (contains? word guess)
+    (game lifes word (conj right-letters guess)
+    (game (dec lifes) word right-letters) )))
+
 (def total-lifes 5)
 
 (defn missing-letters [word right-letters]
@@ -17,7 +25,7 @@
 		(loose-msg)
     (if (completed-word? word right-letters)
       (win-msg)
-      (game (dec lifes) word right-letters))))
+      (analyse-guess (read-letter!) lifes word right-letters)
 		
   
   
