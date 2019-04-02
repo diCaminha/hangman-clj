@@ -21,14 +21,19 @@
   (empty? (missing-letters word right-letters)))
 
 (defn game [lifes word right-letters]
-	(if (= lifes 0)
-		(loose-msg)
-    (if (completed-word? word right-letters)
-      (win-msg)
-      (analyse-guess (read-letter!) lifes word right-letters)
-		
-  
-  
+	(cond 
+    (= lifes 0) (loose-msg)
+    (if (completed-word? word right-letters) (win-msg)
+    :else
+    (let [guess (read-letter!)]
+       (if (contains? word guess)
+         (do
+          (println "Good guess! you found a word!")
+          (recur lifes word (conj right-letters guess))
+         (do
+          (println "bad guess! you wrong.")
+          (recur (dec lifes) word right-letters) ))))
+    
 (defn -main
   "hangman game."
   [& args]
