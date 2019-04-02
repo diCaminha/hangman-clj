@@ -32,7 +32,7 @@
     (let [guess (read-letter!)]
        (if (contains? word guess)
          (do
-          (println "Good guess! you found a word!")
+          (println "Good guess! you found a word.")
           (recur lifes word (conj right-letters guess))
          (do
           (println "bad guess! you wrong.")
