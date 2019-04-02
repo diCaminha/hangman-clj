@@ -3,6 +3,7 @@
 
 (defn loose-msg [] (print "you loose"))
 (defn win-msg [] (print "you win"))
+(def total-lifes 5)
 
 
 (defn read-letter! [] (read-line))
@@ -12,7 +13,9 @@
     (game lifes word (conj right-letters guess)
     (game (dec lifes) word right-letters) )))
 
-(def total-lifes 5)
+
+(defn print-game [word right-letters]
+  (map fn [letter] (contains? right-letters (str letter) (print letter " ") (print "_" " ")) word))
 
 (defn missing-letters [word right-letters]
   (remove (fn [letter] (contains? right-letters (str letter)) word)))
@@ -21,6 +24,7 @@
   (empty? (missing-letters word right-letters)))
 
 (defn game [lifes word right-letters]
+  (print-game word right-letters)
 	(cond 
     (= lifes 0) (loose-msg)
     (if (completed-word? word right-letters) (win-msg)
