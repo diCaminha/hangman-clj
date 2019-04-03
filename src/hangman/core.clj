@@ -14,9 +14,12 @@
     (game (dec lifes) word right-letters) )))
 
 
-(defn print-game [word right-letters]
-  (map fn [letter] (contains? right-letters (str letter) (print letter " ") (print "_" " ")) word))
-
+(defn print-game [word right-letters] 
+  (doseq [l (seq word)]
+    (if  (contains? right-letters (str l) 
+      (print l " ") 
+      (print "_" " ")))))
+   
 (defn missing-letters [word right-letters]
   (remove (fn [letter] (contains? right-letters (str letter)) word)))
 
